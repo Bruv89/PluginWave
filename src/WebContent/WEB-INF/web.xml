@@ -28,6 +28,16 @@
     <url-pattern>/logout</url-pattern>
 </servlet-mapping>
 
+<servlet>
+    <servlet-name>HomeServlet</servlet-name>
+    <servlet-class>control.HomeServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>HomeServlet</servlet-name>
+    <url-pattern>/home</url-pattern>
+</servlet-mapping>
+
+
   
   <display-name>PluginWave</display-name>
   <welcome-file-list>
