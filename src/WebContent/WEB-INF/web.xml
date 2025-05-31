@@ -37,6 +37,33 @@
     <url-pattern>/home</url-pattern>
 </servlet-mapping>
 
+<servlet>
+    <servlet-name>AggiungiAlCarrelloServlet</servlet-name>
+    <servlet-class>control.AggiungiAlCarrelloServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>AggiungiAlCarrelloServlet</servlet-name>
+    <url-pattern>/aggiungiCarrello</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>AggiornaCarrelloServlet</servlet-name>
+    <servlet-class>control.AggiornaCarrelloServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>AggiornaCarrelloServlet</servlet-name>
+    <url-pattern>/aggiornaCarrello</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>SvuotaCarrelloServlet</servlet-name>
+    <servlet-class>control.SvuotaCarrelloServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>SvuotaCarrelloServlet</servlet-name>
+    <url-pattern>/svuotaCarrello</url-pattern>
+</servlet-mapping>
+
 
   
   <display-name>PluginWave</display-name>
