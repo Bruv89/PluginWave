@@ -49,6 +49,13 @@
             <a href="svuotaCarrello" style="margin-left: 10px;">Svuota tutto</a>
         </div>
     </form>
+   
+    <div style="margin: 20px;">
+        <a href="checkout.jsp">
+            <button type="button">Procedi al checkout</button>
+        </a>
+    </div>
+    
 <%
     }
 %>

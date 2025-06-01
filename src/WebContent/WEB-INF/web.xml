@@ -65,6 +65,17 @@
 </servlet-mapping>
 
 
+<servlet>
+    <servlet-name>ConfermaOrdineServlet</servlet-name>
+    <servlet-class>control.ConfermaOrdineServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>ConfermaOrdineServlet</servlet-name>
+    <url-pattern>/confermaOrdine</url-pattern>
+</servlet-mapping>
+
+
+
   
   <display-name>PluginWave</display-name>
   <welcome-file-list>
