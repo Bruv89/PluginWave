@@ -18,7 +18,7 @@ public class RegisterServlet extends HttpServlet {
         try {
             boolean success = new UtenteDAO().register(nome, email, password);
             if (success) {
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("login.jsp?registrazione=ok"); // ✅ messaggio conferma
             } else {
                 request.setAttribute("errore", "Registrazione fallita.");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
@@ -28,4 +28,5 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 }
+
 

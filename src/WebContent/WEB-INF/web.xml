@@ -75,6 +75,16 @@
 </servlet-mapping>
 
 
+<servlet>
+    <servlet-name>OrdiniUtenteServlet</servlet-name>
+    <servlet-class>control.OrdiniUtenteServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>OrdiniUtenteServlet</servlet-name>
+    <url-pattern>/ordini</url-pattern>
+</servlet-mapping>
+
+
 
   
   <display-name>PluginWave</display-name>

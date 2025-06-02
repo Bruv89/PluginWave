@@ -9,6 +9,17 @@
 <body>
 <jsp:include page="header.jsp" />
 
+<%
+    String regSuccess = request.getParameter("registrazione");
+    if ("ok".equals(regSuccess)) {
+%>
+    <p style="color: green; padding: 10px; text-align: center;">
+        ✅ Il tuo profilo è stato creato correttamente. Effettua il login.
+    </p>
+<%
+    }
+%>
+
 <h2>Login</h2>
 
 <form action="login" method="post" id="loginForm">
