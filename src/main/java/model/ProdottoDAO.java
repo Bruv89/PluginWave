@@ -55,6 +55,24 @@ public class ProdottoDAO {
             return null;
         }
     }
+    
+    
+    public void doSave(Prodotto prodotto) throws SQLException {
+        try (Connection con = DBConnection.getConnection()) {
+        	String sql = "INSERT INTO prodotto (nome, descrizione, prezzo, immagine, categoria) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, prodotto.getNome());
+            ps.setString(2, prodotto.getDescrizione());
+            ps.setDouble(3, prodotto.getPrezzo());
+            ps.setString(4, prodotto.getImmagine());
+            ps.setString(5, prodotto.getCategoria());
+            ps.executeUpdate();
+        }
+    }
+
+    
+    
+    
 }
 
 

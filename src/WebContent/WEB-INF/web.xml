@@ -85,6 +85,17 @@
 </servlet-mapping>
 
 
+<servlet>
+    <servlet-name>InserisciProdottoServlet</servlet-name>
+    <servlet-class>control.InserisciProdottoServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>InserisciProdottoServlet</servlet-name>
+    <url-pattern>/inserisciProdotto</url-pattern>
+</servlet-mapping>
+
+
+
 
   
   <display-name>PluginWave</display-name>

@@ -1,11 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Prodotto" %>
+<%@ page import="model.Utente" %>
 <jsp:include page="header.jsp" />
 
-<h2>Catalogo prodotti</h2>
+<%
+    Utente utente = (Utente) session.getAttribute("utente");
+%>
 
-<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+<h2 style="padding: 20px;">
+    Catalogo prodotti
+    <% if (utente != null) { %>
+        – Benvenuto, <%= utente.getNome() %>!
+    <% } else { %>
+        – Benvenuto ospite!
+    <% } %>
+</h2>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 0 20px 20px 20px;">
     <%
         List<Prodotto> prodotti = (List<Prodotto>) request.getAttribute("prodotti");
         for (Prodotto p : prodotti) {

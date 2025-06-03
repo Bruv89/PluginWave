@@ -21,16 +21,26 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("utente", u);
 
-                // Redirect in base al ruolo
+                // Redirect dinamico se esiste
+                String redirect = (String) session.getAttribute("redirectAfterLogin");
+                if (redirect != null) {
+                    session.removeAttribute("redirectAfterLogin");
+                    response.sendRedirect(redirect);
+                    return;
+                }
+
+                // Altrimenti redirect classico
                 if ("admin".equals(u.getRuolo())) {
                     response.sendRedirect("adminDashboard.jsp");
                 } else {
                     response.sendRedirect("userDashboard.jsp");
                 }
+
             } else {
                 request.setAttribute("errore", "Email o password errati.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
+
         } catch (SQLException e) {
             throw new ServletException(e);
         }

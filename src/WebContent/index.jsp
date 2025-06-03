@@ -9,6 +9,10 @@
         <a href="login.jsp"><button>Accedi</button></a>
         <a href="register.jsp"><button style="margin-left: 10px;">Registrati</button></a>
     </div>
+    <div style="margin-top: 20px;">
+    <a href="home"><button>🎧 Esplora catalogo</button></a>
+</div>
+    
 </div>
 
 <jsp:include page="footer.jsp" />

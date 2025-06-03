@@ -14,6 +14,15 @@
     <h2>Benvenuto, Amministratore</h2>
     <p>Gestisci il catalogo e gli ordini.</p>
 
+<%
+    if ("ok".equals(request.getParameter("inserito"))) {
+%>
+    <p style="color: green;">✅ Prodotto aggiunto con successo!</p>
+<%
+    }
+%>
+
+
     <ul style="margin-top: 20px;">
         <li><a href="inserisciProdotto.jsp">➕ Inserisci nuovo prodotto</a></li>
         <li><a href="gestioneProdotti">✏️ Modifica / Elimina prodotti</a></li>

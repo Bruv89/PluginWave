@@ -1,5 +1,6 @@
 package control;
 
+import model.Utente;
 import model.UtenteDAO;
 
 import jakarta.servlet.*;
@@ -16,17 +17,37 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            boolean success = new UtenteDAO().register(nome, email, password);
+            UtenteDAO dao = new UtenteDAO();
+            boolean success = dao.register(nome, email, password);
+
             if (success) {
-                response.sendRedirect("login.jsp?registrazione=ok"); // ✅ messaggio conferma
+                // Recupera l'utente appena registrato
+                Utente utente = dao.checkLogin(email, password);
+
+                // Login automatico
+                HttpSession session = request.getSession(true);
+                session.setAttribute("utente", utente);
+
+                // Redirect dinamico
+                String redirect = (String) session.getAttribute("redirectAfterLogin");
+                if (redirect != null) {
+                    session.removeAttribute("redirectAfterLogin");
+                    response.sendRedirect(redirect);
+                } else {
+                    response.sendRedirect("userDashboard.jsp");
+                }
+
             } else {
+                // Registrazione fallita
                 request.setAttribute("errore", "Registrazione fallita.");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
             }
+
         } catch (SQLException e) {
             throw new ServletException(e);
         }
     }
 }
+
 
 
