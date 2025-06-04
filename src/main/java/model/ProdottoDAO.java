@@ -71,6 +71,29 @@ public class ProdottoDAO {
     }
 
     
+    public void doUpdate(Prodotto p) throws SQLException {
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(
+                     "UPDATE prodotto SET nome=?, descrizione=?, prezzo=?, immagine=?, categoria=? WHERE id=?")) {
+
+            ps.setString(1, p.getNome());
+            ps.setString(2, p.getDescrizione());
+            ps.setDouble(3, p.getPrezzo());
+            ps.setString(4, p.getImmagine());
+            ps.setString(5, p.getCategoria());
+            ps.setInt(6, p.getId());
+            ps.executeUpdate();
+        }
+    }
+
+    public void doDelete(int id) throws SQLException {
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("DELETE FROM prodotto WHERE id=?")) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+    }
+
     
     
 }

@@ -8,6 +8,7 @@ public class OrdineDTO {
     public Timestamp data;
     public double totale;
     public String indirizzo, citta, cap;
+    public String emailUtente;
     public List<RigaOrdineDTO> righe;
 }
 
