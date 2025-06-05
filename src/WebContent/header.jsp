@@ -34,34 +34,45 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <div class="nav-left">
-            <a href="index.jsp">SoundWave</a>
-        </div>
-        <div class="nav-right">
-            <%
-                Utente utente = (Utente) session.getAttribute("utente");
-                if (utente != null) {
-            %>
-                <a href="home">Catalogo</a>
-                <a href="carrello.jsp">Carrello</a>
-                <a href="ordini">I miei ordini</a>
-                <a href="#" onclick="confirmLogout()">Logout</a>
-            <%
-                } else {
-            %>
-                <a href="login.jsp">Accedi</a>
-                <a href="register.jsp">Registrati</a>
-            <%
-                }
-            %>
-        </div>
-    </div>
+<%
+    Utente utente = (Utente) session.getAttribute("utente");
+    String homeLink = "index.jsp"; // default per non loggati
 
-    <script>
-        function confirmLogout() {
-            if (confirm("Sei sicuro di voler effettuare il logout?")) {
-                window.location.href = "logout";
-            }
+    if (utente != null) {
+        if ("admin".equals(utente.getRuolo())) {
+            homeLink = "adminDashboard.jsp";
+        } else {
+            homeLink = "userDashboard.jsp";
         }
-    </script>
+    }
+%>
+<div class="navbar">
+    <div class="nav-left">
+        <a href="<%= homeLink %>">SoundWave</a>
+    </div>
+    <div class="nav-right">
+        <%
+            if (utente != null) {
+        %>
+            <a href="home">Catalogo</a>
+            <a href="carrello.jsp">Carrello</a>
+            <a href="ordini">I miei ordini</a>
+            <a href="#" onclick="confirmLogout()">Logout</a>
+        <%
+            } else {
+        %>
+            <a href="login.jsp">Accedi</a>
+            <a href="register.jsp">Registrati</a>
+        <%
+            }
+        %>
+    </div>
+</div>
+
+<script>
+    function confirmLogout() {
+        if (confirm("Sei sicuro di voler effettuare il logout?")) {
+            window.location.href = "logout";
+        }
+    }
+</script>

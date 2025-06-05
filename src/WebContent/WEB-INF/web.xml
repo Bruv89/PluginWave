@@ -95,7 +95,67 @@
 </servlet-mapping>
 
 
+<servlet>
+    <servlet-name>GestioneProdottiServlet</servlet-name>
+    <servlet-class>control.GestioneProdottiServlet</servlet-class>
+</servlet>
 
+<servlet-mapping>
+    <servlet-name>GestioneProdottiServlet</servlet-name>
+    <url-pattern>/gestioneProdotti</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+    <servlet-name>ModificaProdottoServlet</servlet-name>
+    <servlet-class>control.ModificaProdottoServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>ModificaProdottoServlet</servlet-name>
+    <url-pattern>/modificaProdotto</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+    <servlet-name>EliminaProdottoServlet</servlet-name>
+    <servlet-class>control.EliminaProdottoServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>EliminaProdottoServlet</servlet-name>
+    <url-pattern>/eliminaProdotto</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>AggiornaCarrelloAjaxServlet</servlet-name>
+    <servlet-class>control.AggiornaCarrelloAjaxServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>AggiornaCarrelloAjaxServlet</servlet-name>
+    <url-pattern>/aggiornaCarrelloAjax</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>OrdiniAdminServlet</servlet-name>
+    <servlet-class>control.OrdiniAdminServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>OrdiniAdminServlet</servlet-name>
+    <url-pattern>/ordiniAdmin</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>AggiornaCarrelloAjax</servlet-name>
+    <servlet-class>control.AggiornaCarrelloAjaxServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>AggiornaCarrelloAjax</servlet-name>
+    <url-pattern>/aggiornaCarrelloAjax</url-pattern>
+</servlet-mapping>
 
   
   <display-name>PluginWave</display-name>

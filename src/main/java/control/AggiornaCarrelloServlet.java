@@ -23,7 +23,11 @@ public class AggiornaCarrelloServlet extends HttpServlet {
                 if (param.startsWith("quantita_")) {
                     int idProdotto = Integer.parseInt(param.substring(9));
                     int quantita = Integer.parseInt(request.getParameter(param));
-                    carrello.aggiornaQuantita(idProdotto, quantita);
+                    if (quantita <= 0) {
+                        carrello.rimuoviProdotto(idProdotto);
+                    } else {
+                        carrello.aggiornaQuantita(idProdotto, quantita);
+                    }
                 }
             }
 

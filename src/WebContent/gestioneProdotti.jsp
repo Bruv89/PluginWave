@@ -6,6 +6,16 @@
 <h2 style="padding: 20px;">Gestione Prodotti</h2>
 
 <%
+    String msg = request.getParameter("modifica");
+    if ("ok".equals(msg)) {
+%>
+    <p style="color: green; padding: 10px;">✔️ Modifica salvata con successo.</p>
+<%
+    }
+%>
+
+
+<%
     List<Prodotto> prodotti = (List<Prodotto>) request.getAttribute("prodotti");
     if (prodotti == null || prodotti.isEmpty()) {
 %>

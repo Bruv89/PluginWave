@@ -1,10 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Prodotto" %>
 <%@ page import="model.ProdottoDAO" %>
+<%@ page import="model.Utente" %>
 <%@ page import="java.sql.*" %>
 <jsp:include page="header.jsp" />
 
 <%
+    HttpSession sessione = request.getSession(false);
+    Utente utente = (sessione != null) ? (Utente) sessione.getAttribute("utente") : null;
+
+    if (utente == null || !"admin".equals(utente.getRuolo())) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
     int id = Integer.parseInt(request.getParameter("id"));
     Prodotto prodotto = null;
     try {

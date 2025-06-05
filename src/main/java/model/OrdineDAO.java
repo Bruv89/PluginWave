@@ -8,7 +8,7 @@ public class OrdineDAO {
     public void doSaveOrdine(OrdineDTO ordine, int idUtente) throws SQLException {
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(
-                     "INSERT INTO ordine (utente_id, data, indirizzo, citta, cap, totale) VALUES (?, NOW(), ?, ?, ?, ?)",
+                     "INSERT INTO ordine (id_utente, data, indirizzo, citta, cap, totale) VALUES (?, NOW(), ?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setInt(1, idUtente);
@@ -46,7 +46,7 @@ public class OrdineDAO {
         List<OrdineDTO> ordini = new ArrayList<>();
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(
-                     "SELECT * FROM ordine WHERE utente_id = ? ORDER BY data DESC")) {
+                     "SELECT * FROM ordine WHERE id_utente = ? ORDER BY data DESC")) {
 
             ps.setInt(1, idUtente);
             try (ResultSet rs = ps.executeQuery()) {
@@ -64,13 +64,13 @@ public class OrdineDAO {
         List<RigaOrdineDTO> righe = new ArrayList<>();
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(
-                     "SELECT r.*, p.nome FROM riga_ordine r JOIN prodotto p ON r.prodotto_id = p.id WHERE ordine_id = ?")) {
+            		 "SELECT r.*, p.nome FROM riga_ordine r JOIN prodotto p ON r.id_prodotto = p.id WHERE r.id_ordine = ?")) {
 
             ps.setInt(1, idOrdine);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     RigaOrdineDTO r = new RigaOrdineDTO();
-                    r.idProdotto = rs.getInt("prodotto_id");
+                    r.idProdotto = rs.getInt("id_prodotto");
                     r.nomeProdotto = rs.getString("nome");
                     r.quantita = rs.getInt("quantita");
                     r.prezzo = rs.getDouble("prezzo");
@@ -85,7 +85,7 @@ public class OrdineDAO {
         List<OrdineDTO> ordini = new ArrayList<>();
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(
-                     "SELECT o.*, u.email FROM ordine o JOIN utente u ON o.utente_id = u.id WHERE data BETWEEN ? AND ? ORDER BY data DESC")) {
+                     "SELECT o.*, u.email FROM ordine o JOIN utente u ON o.id_utente = u.id WHERE o.data BETWEEN ? AND ? ORDER BY o.data DESC")) {
 
             ps.setString(1, da);
             ps.setString(2, a);
@@ -105,7 +105,7 @@ public class OrdineDAO {
         List<OrdineDTO> ordini = new ArrayList<>();
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(
-                     "SELECT o.*, u.email FROM ordine o JOIN utente u ON o.utente_id = u.id WHERE u.email = ? ORDER BY o.data DESC")) {
+                     "SELECT o.*, u.email FROM ordine o JOIN utente u ON o.id_utente = u.id WHERE u.email = ? ORDER BY o.data DESC")) {
 
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
@@ -124,7 +124,7 @@ public class OrdineDAO {
         List<OrdineDTO> ordini = new ArrayList<>();
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(
-                     "SELECT o.*, u.email FROM ordine o JOIN utente u ON o.utente_id = u.id ORDER BY o.data DESC")) {
+                     "SELECT o.*, u.email FROM ordine o JOIN utente u ON o.id_utente = u.id ORDER BY o.data DESC")) {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {

@@ -38,7 +38,7 @@ public class ModificaProdottoServlet extends HttpServlet {
 
             new ProdottoDAO().doUpdate(p);
 
-            response.sendRedirect("gestioneProdotti");
+            response.sendRedirect("gestioneProdotti?modifica=ok");
         } catch (SQLException | NumberFormatException e) {
             throw new ServletException(e);
         }
