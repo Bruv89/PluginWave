@@ -32,7 +32,7 @@
             <td>
                 <input type="number" class="quantita" data-id="<%= id %>" value="<%= ec.getQuantita() %>" min="0">
             </td>
-            <td>€ <%= ec.getProdotto().getPrezzo() %></td>
+            <td class="prezzo">€ <%= ec.getProdotto().getPrezzo() %></td>
             <td class="subtotale">€ <%= ec.getTotale() %></td>
             <td>
                 <form action="aggiornaCarrello" method="post">
@@ -45,8 +45,9 @@
     </table>
 
     <p style="margin: 20px;">
-        Totale: <strong id="totale">€ <%= carrello.getTotale() %></strong>
-    </p>
+  <strong id="totale">Totale: € <%= carrello.getTotale() %></strong>
+</p>
+    
 
     <div style="margin: 20px;">
         <a href="checkout.jsp"><button>Procedi al checkout</button></a>
@@ -61,23 +62,49 @@
 
 <jsp:include page="footer.jsp" />
 
-<!-- 🔁 AJAX JavaScript -->
 <script>
-    document.querySelectorAll('.quantita').forEach(input => {
-        input.addEventListener('change', function () {
-            const id = this.dataset.id;
-            const quantita = this.value;
+document.querySelectorAll('.quantita').forEach(input => {
+    input.addEventListener('input', function () {
+        const id = this.dataset.id;
+        const quantita = this.value;
 
-            fetch('aggiornaCarrelloAjax', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `idProdotto=${id}&quantita=${quantita}`
-            })
-            .then(res => res.json())
-            .then(data => {
-                document.querySelector(`tr[data-id="${id}"] .subtotale`).textContent = `€ ${data.subtotale.toFixed(2)}`;
-                document.getElementById("totale").textContent = `€ ${data.totale.toFixed(2)}`;
-            });
+        const params = "idProdotto=" + encodeURIComponent(id) + "&quantita=" + encodeURIComponent(quantita);
+
+        fetch('aggiornaCarrelloAjax', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params
+        })
+        .then(res => res.json())
+        .then(data => {
+            const riga = document.querySelector('tr[data-id="' + id + '"]');
+            if (riga) {
+                if (quantita == 0) {
+                    // Se la quantità è zero, rimuovi la riga
+                    riga.remove();
+                } else {
+                    const subtotaleCell = riga.querySelector('.subtotale');
+                    if (subtotaleCell) {
+                        subtotaleCell.textContent = "€ " + Number(data.subtotale).toFixed(2);
+                    }
+
+                    const prezzoCell = riga.querySelector('.prezzo');
+                    if (prezzoCell) {
+                        prezzoCell.textContent = "€ " + Number(data.prezzo).toFixed(2);
+                    }
+                }
+            }
+
+            // Aggiorna sempre il totale finale
+            const totaleEl = document.getElementById('totale');
+            if (totaleEl) {
+                totaleEl.textContent = "Totale: € " + Number(data.totale).toFixed(2);
+            }
+        })
+        .catch(error => {
+            console.error('Errore nella risposta AJAX:', error);
         });
     });
+});
 </script>
+

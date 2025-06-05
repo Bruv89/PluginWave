@@ -147,15 +147,6 @@
     <url-pattern>/ordiniAdmin</url-pattern>
 </servlet-mapping>
 
-<servlet>
-    <servlet-name>AggiornaCarrelloAjax</servlet-name>
-    <servlet-class>control.AggiornaCarrelloAjaxServlet</servlet-class>
-</servlet>
-
-<servlet-mapping>
-    <servlet-name>AggiornaCarrelloAjax</servlet-name>
-    <url-pattern>/aggiornaCarrelloAjax</url-pattern>
-</servlet-mapping>
 
   
   <display-name>PluginWave</display-name>
