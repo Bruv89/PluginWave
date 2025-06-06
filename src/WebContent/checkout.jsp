@@ -24,18 +24,17 @@
     } else {
 %>
 
-
 <h2 style="padding: 20px;">Checkout</h2>
 
-<form action="confermaOrdine" method="post" style="margin: 20px;">
+<form action="confermaOrdine" method="post" id="checkoutForm" style="margin: 20px;">
     <h3>Dati di spedizione</h3>
-    <label>Indirizzo: <input type="text" name="indirizzo" required></label><br><br>
-    <label>Città: <input type="text" name="citta" required></label><br><br>
-    <label>CAP: <input type="text" name="cap" required pattern="\d{5}"></label><br><br>
+    <label>Indirizzo: <input type="text" name="indirizzo"></label><br><br>
+    <label>Città: <input type="text" name="citta"></label><br><br>
+    <label>CAP: <input type="text" name="cap"></label><br><br>
 
     <h3>Dati di pagamento</h3>
-    <label>Numero carta: <input type="text" name="carta" required pattern="\d{16}"></label><br><br>
-    <label>Intestatario: <input type="text" name="intestatario" required></label><br><br>
+    <label>Numero carta: <input type="text" name="carta"></label><br><br>
+    <label>Intestatario: <input type="text" name="intestatario"></label><br><br>
 
     <p>Totale ordine: <strong>€ <%= carrello.getTotale() %></strong></p>
 
@@ -46,5 +45,5 @@
     }
 %>
 
+<script src="scripts/checkout.js" defer></script>
 <jsp:include page="footer.jsp" />
-
