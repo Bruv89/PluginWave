@@ -147,6 +147,27 @@
     <url-pattern>/ordiniAdmin</url-pattern>
 </servlet-mapping>
 
+<filter>
+    <filter-name>SecurityHeadersFilter</filter-name>
+    <filter-class>security.SecurityHeadersFilter</filter-class>
+    
+</filter>
+<filter-mapping>
+    <filter-name>SecurityHeadersFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+
+<filter>
+    <filter-name>HttpsRedirectFilter</filter-name>
+    <filter-class>security.HttpsRedirectFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>HttpsRedirectFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+
 
   
   <display-name>PluginWave</display-name>
@@ -158,4 +179,5 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+    
 </web-app>
