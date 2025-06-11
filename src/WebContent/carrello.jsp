@@ -4,61 +4,61 @@
 <%@ page import="java.util.*" %>
 <jsp:include page="header.jsp" />
 
-<h2 style="padding: 20px;">Il tuo carrello</h2>
+<link rel="stylesheet" href="styles/style.css">
 
-<%
-    Carrello carrello = (Carrello) session.getAttribute("carrello");
+<div class="cart-container">
+    <h2>🛒 Il tuo carrello</h2>
 
-    if (carrello == null || carrello.isVuoto()) {
-%>
-    <p style="padding: 20px;">Il carrello è vuoto.</p>
-<%
-    } else {
-%>
-    <table border="1" cellpadding="10" cellspacing="0" style="margin: 20px;">
-        <tr>
-            <th>Prodotto</th>
-            <th>Quantità</th>
-            <th>Prezzo</th>
-            <th>Totale</th>
-            <th>Rimuovi</th>
-        </tr>
-        <%
-            for (ElementoCarrello ec : carrello.getElementi()) {
-                int id = ec.getProdotto().getId();
-        %>
-        <tr data-id="<%= id %>">
-            <td><%= ec.getProdotto().getNome() %></td>
-            <td>
+    <%
+        Carrello carrello = (Carrello) session.getAttribute("carrello");
+
+        if (carrello == null || carrello.isVuoto()) {
+    %>
+        <p class="empty-cart">Il carrello è vuoto.</p>
+    <%
+        } else {
+    %>
+        <div class="cart-grid">
+            <div class="cart-header">Prodotto</div>
+            <div class="cart-header">Quantità</div>
+            <div class="cart-header">Prezzo</div>
+            <div class="cart-header">Totale</div>
+            <div class="cart-header">Rimuovi</div>
+
+            <%
+                for (ElementoCarrello ec : carrello.getElementi()) {
+                    int id = ec.getProdotto().getId();
+            %>
+            <div class="cart-cell"><%= ec.getProdotto().getNome() %></div>
+            <div class="cart-cell">
                 <input type="number" class="quantita" data-id="<%= id %>" value="<%= ec.getQuantita() %>" min="0">
-            </td>
-            <td class="prezzo">€ <%= ec.getProdotto().getPrezzo() %></td>
-            <td class="subtotale">€ <%= ec.getTotale() %></td>
-            <td>
+            </div>
+            <div class="cart-cell prezzo">€ <%= ec.getProdotto().getPrezzo() %></div>
+            <div class="cart-cell subtotale">€ <%= ec.getTotale() %></div>
+            <div class="cart-cell">
                 <form action="aggiornaCarrello" method="post">
                     <input type="hidden" name="rimuovi" value="<%= id %>">
-                    <button type="submit">❌</button>
+                    <button class="remove-btn" type="submit">❌</button>
                 </form>
-            </td>
-        </tr>
-        <% } %>
-    </table>
+            </div>
+            <% } %>
+        </div>
 
-    <p style="margin: 20px;">
-  <strong id="totale">Totale: € <%= carrello.getTotale() %></strong>
-</p>
-    
+        <div class="cart-summary">
+            <strong id="totale">Totale: € <%= carrello.getTotale() %></strong>
+        </div>
 
-    <div style="margin: 20px;">
-        <a href="checkout.jsp"><button>Procedi al checkout</button></a>
+        <div class="cart-actions">
+            <a href="checkout.jsp" class="btn">Procedi al checkout</a>
+        </div>
+    <%
+        }
+    %>
+
+    <div class="cart-back">
+        <a href="home">← Torna al catalogo prodotti</a>
     </div>
-<%
-    }
-%>
-
-<p style="margin: 20px;">
-    <a href="home">← Torna al catalogo prodotti</a>
-</p>
+</div>
 
 <jsp:include page="footer.jsp" />
 
@@ -77,25 +77,17 @@ document.querySelectorAll('.quantita').forEach(input => {
         })
         .then(res => res.json())
         .then(data => {
-            const riga = document.querySelector('tr[data-id="' + id + '"]');
-            if (riga) {
-                if (quantita == 0) {
-                    // Se la quantità è zero, rimuovi la riga
-                    riga.remove();
-                } else {
-                    const subtotaleCell = riga.querySelector('.subtotale');
-                    if (subtotaleCell) {
-                        subtotaleCell.textContent = "€ " + Number(data.subtotale).toFixed(2);
-                    }
+            const riga = document.querySelector('div.cart-cell input[data-id="' + id + '"]')?.closest('.cart-grid');
+            const inputElem = document.querySelector('input[data-id="' + id + '"]');
+            const container = inputElem?.closest('.cart-grid');
 
-                    const prezzoCell = riga.querySelector('.prezzo');
-                    if (prezzoCell) {
-                        prezzoCell.textContent = "€ " + Number(data.prezzo).toFixed(2);
-                    }
-                }
+            if (quantita == 0 && container) {
+                inputElem.closest('.cart-cell').parentElement.remove();
+            } else {
+                inputElem.parentElement.nextElementSibling.textContent = "€ " + Number(data.prezzo).toFixed(2);
+                inputElem.parentElement.nextElementSibling.nextElementSibling.textContent = "€ " + Number(data.subtotale).toFixed(2);
             }
 
-            // Aggiorna sempre il totale finale
             const totaleEl = document.getElementById('totale');
             if (totaleEl) {
                 totaleEl.textContent = "Totale: € " + Number(data.totale).toFixed(2);
@@ -107,4 +99,3 @@ document.querySelectorAll('.quantita').forEach(input => {
     });
 });
 </script>
-

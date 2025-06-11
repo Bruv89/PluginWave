@@ -1,18 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="header.jsp" />
 
-<div style="text-align: center; padding: 40px;">
-    <h1>Benvenuto su SoundWave</h1>
-    <p>Il marketplace dove puoi acquistare plugin audio professionali.</p>
-    
-    <div style="margin-top: 30px;">
-        <a href="login.jsp"><button>Accedi</button></a>
-        <a href="register.jsp"><button style="margin-left: 10px;">Registrati</button></a>
+<link rel="stylesheet" href="styles/style.css">
+
+<div class="hero">
+    <div class="hero-content">
+        <h1>Benvenuto su <span class="brand">SoundWave</span></h1>
+        <p>Il marketplace dove puoi acquistare plugin audio professionali.</p>
+
+        <div class="cta-buttons">
+            <a href="login.jsp" class="btn">Accedi</a>
+            <a href="register.jsp" class="btn secondary">Registrati</a>
+        </div>
+
+        <div class="explore">
+            <a href="home" class="btn explore-btn">🎧 Esplora catalogo</a>
+        </div>
     </div>
-    <div style="margin-top: 20px;">
-    <a href="home"><button>🎧 Esplora catalogo</button></a>
-</div>
-    
 </div>
 
 <jsp:include page="footer.jsp" />

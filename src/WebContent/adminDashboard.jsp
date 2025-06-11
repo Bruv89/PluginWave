@@ -2,6 +2,8 @@
 <%@ page import="model.Utente" %>
 <jsp:include page="header.jsp" />
 
+<link rel="stylesheet" href="styles/style.css">
+
 <%
     Utente u = (Utente) session.getAttribute("utente");
     if (u == null || !"admin".equals(u.getRuolo())) {
@@ -10,26 +12,24 @@
     }
 %>
 
-<div style="padding: 40px;">
-    <h2>Benvenuto, Amministratore</h2>
-    <p>Gestisci il catalogo e gli ordini.</p>
+<div class="admin-dashboard">
+    <h2>Benvenuto, <span class="highlight">Amministratore</span></h2>
+    <p class="subtitle">Gestisci il catalogo e gli ordini tramite le opzioni sottostanti.</p>
 
-<%
-    if ("ok".equals(request.getParameter("inserito"))) {
-%>
-    <p style="color: green;">✅ Prodotto aggiunto con successo!</p>
-<%
-    }
-%>
+    <%
+        if ("ok".equals(request.getParameter("inserito"))) {
+    %>
+        <div class="success-message">✅ Prodotto aggiunto con successo!</div>
+    <%
+        }
+    %>
 
-
-    <ul style="margin-top: 20px;">
-        <li><a href="inserisciProdotto.jsp">➕ Inserisci nuovo prodotto</a></li>
-        <li><a href="gestioneProdotti">✏️ Modifica / Elimina prodotti</a></li>
-        <li><a href="ordiniAdmin.jsp">📦 Visualizza ordini</a></li>
-        <li><a href="logout">🔓 Logout</a></li>
-    </ul>
+    <div class="admin-actions">
+        <a href="inserisciProdotto.jsp" class="admin-card">➕ Inserisci nuovo prodotto</a>
+        <a href="gestioneProdotti" class="admin-card">✏️ Modifica / Elimina prodotti</a>
+        <a href="ordiniAdmin.jsp" class="admin-card">📦 Visualizza ordini</a>
+        <a href="logout" class="admin-card danger">🔓 Logout</a>
+    </div>
 </div>
 
 <jsp:include page="footer.jsp" />
-
