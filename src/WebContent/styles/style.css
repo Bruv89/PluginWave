@@ -4,21 +4,20 @@ html, body {
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #012340;
-    background: url("../images/sfondo.png") repeat;
+    background: url("../images/sfondo.png") center center fixed;
     background-size: cover;
-    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
 }
 
 
-/* Overlay per migliorare leggibilità */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.92);
-    z-index: -1;
+
+main {
+    flex: 1 0 auto;
+    padding: 40px 20px;
 }
 
+/* --- HEADER / HERO --- */
 .hero {
     text-align: center;
     padding: 60px 20px;
@@ -67,18 +66,21 @@ body::before {
     background-color: #025373;
 }
 
+/* --- FORM GENERICI --- */
 form {
     background: white;
-    padding: 20px;
-    max-width: 400px;
-    margin: 40px auto;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 30px;
+    max-width: 500px;
+    margin: 30px auto;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
     border-radius: 10px;
 }
 
 label {
     display: block;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #025373;
 }
 
 input, button {
@@ -113,62 +115,45 @@ button:hover {
     text-align: center;
 }
 
-@media (max-width: 600px) {
-    .hero h1 {
-        font-size: 2em;
-    }
-
-    .hero p {
-        font-size: 1em;
-    }
-
-    form {
-        width: 90%;
-        padding: 15px;
-    }
-
-    input, button {
-        font-size: 1em;
-    }
-
-    .btn {
-        display: block;
-        width: 100%;
-        margin: 10px 0;
-    }
+.success-message {
+    background-color: #e6f9f8;
+    color: #0388A6;
+    padding: 12px 20px;
+    border-left: 6px solid #04C4D9;
+    border-radius: 8px;
+    margin: 20px auto 30px;
+    max-width: 600px;
+    font-weight: bold;
+    font-size: 1.05em;
 }
 
+
+/* --- ADMIN DASHBOARD --- */
 .admin-dashboard {
     padding: 60px 20px;
     text-align: center;
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: rgba(255, 255, 255, 0.94);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .admin-dashboard h2 {
     font-size: 2.5em;
     margin-bottom: 10px;
-    color: #023059;
+    color: #012340;
 }
 
 .admin-dashboard .highlight {
-    color: #04C4D9;
+    color: #04C4D9; /* Azzurro brillante coerente con pulsanti */
 }
 
 .admin-dashboard .subtitle {
-    font-size: 1.1em;
+    font-size: 1.2em;
     color: #025373;
     margin-bottom: 30px;
 }
-
-.success-message {
-    color: green;
-    background-color: #e9fbe9;
-    padding: 10px 15px;
-    border-radius: 5px;
-    display: inline-block;
-    margin-bottom: 30px;
-    font-weight: bold;
-}
-
 .admin-actions {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -181,10 +166,10 @@ button:hover {
     background-color: #0388A6;
     color: white;
     padding: 20px;
-    text-decoration: none;
     border-radius: 10px;
+    text-decoration: none;
     font-size: 1.1em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: 0.3s ease;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
@@ -193,106 +178,49 @@ button:hover {
     transform: translateY(-2px);
 }
 
-.admin-card.danger {
-    background-color: #023059;
-}
-
-.admin-card.danger:hover {
-    background-color: #012340;
-}
-
-/* --- Carrello --- */
+/* --- CARRELLO --- */
 .cart-container {
-    padding: 40px 20px;
-    max-width: 1000px;
-    margin: auto;
-    background-color: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.95);
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.cart-container h2 {
-    text-align: center;
-    color: #023059;
-    margin-bottom: 30px;
-    font-size: 2em;
-}
-
-.empty-cart {
-    text-align: center;
-    font-size: 1.2em;
-    color: #025373;
-    padding: 20px;
-    background-color: #f0f8fb;
-    border-radius: 8px;
-}
-
-/* griglia responsive */
 .cart-grid {
     display: grid;
-    grid-template-columns: 2.5fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
     gap: 10px;
     align-items: center;
-    font-size: 0.95em;
 }
+
 
 .cart-header {
-    font-weight: bold;
     background-color: #023059;
     color: white;
-    padding: 12px 6px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
     border-radius: 5px;
-    text-align: center;
 }
 
-.cart-cell {
-    background-color: #f4f8fa;
-    padding: 10px 6px;
-    border-radius: 6px;
-    text-align: center;
-    word-break: break-word;
-}
 
-/* input quantità */
 .cart-cell input[type="number"] {
     width: 70px;
-    padding: 6px;
-    font-size: 1em;
+    padding: 6px 8px;
     text-align: center;
+    font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 6px;
+    margin: 0 auto;
+    display: block;
 }
 
-/* bottone rimozione */
-.remove-btn {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
-}
 
-.remove-btn:hover {
-    background-color: #c9302c;
-}
-
-/* totale e pulsanti */
-.cart-summary {
+.cart-summary, .cart-actions {
     text-align: right;
-    font-size: 1.2em;
-    margin: 20px 0;
-    padding-right: 10px;
-}
-
-.cart-actions {
-    text-align: right;
-    padding-right: 10px;
-}
-
-.cart-actions .btn {
-    font-size: 1em;
+    margin-top: 20px;
 }
 
 .cart-back {
@@ -301,34 +229,246 @@ button:hover {
 }
 
 .cart-back a {
-    text-decoration: none;
     color: #025373;
+    text-decoration: none;
     font-weight: bold;
-    transition: color 0.2s ease;
 }
 
 .cart-back a:hover {
     color: #012340;
 }
 
-@media (max-width: 768px) {
-    .cart-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-    }
-
-    .cart-header,
-    .cart-cell {
-        font-size: 0.85em;
-        padding: 8px;
-    }
-
-    .cart-summary,
-    .cart-actions {
-        text-align: center;
-    }
-
-    .cart-cell input[type="number"] {
-        width: 100%;
-    }
+.remove-btn {
+    background: #d9534f;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
+
+.remove-btn:hover {
+    background: #c9302c;
+}
+
+/* --- CHECKOUT --- */
+.form-checkout {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    margin: 30px auto;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-checkout h3 {
+    color: #023059;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* --- CATALOGO --- */
+.catalogo-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.catalogo-titolo {
+    background: rgba(255, 255, 255, 0.95);
+    text-align: center;
+    font-size: 2em;
+    color: #023059;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.catalogo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.prodotto-card {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.prodotto-card:hover {
+    transform: translateY(-5px);
+}
+
+.prodotto-img {
+    max-width: 200px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.prodotto-info h3 {
+    color: #023059;
+}
+
+.prodotto-desc {
+    color: #025373;
+    margin: 10px 0;
+}
+
+.prodotto-prezzo {
+    color: #0388A6;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* --- PAGINE STATICHE (Privacy, Contatti) --- */
+.content-page {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #012340;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.content-page h2 {
+    font-size: 2em;
+    color: #023059;
+}
+
+.content-page strong {
+    color: #025373;
+}
+
+/* --- FOOTER --- */
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+footer {
+    background-color: #012340;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 0.9em;
+    margin-top: auto;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+footer a {
+    color: #04C4D9;
+    margin: 0 8px;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .catalogo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    form,
+    .form-checkout {
+        width: 90%;
+    }
+
+    .cart-grid {
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+
+/* --- GESTIONE PRODOTTI --- */
+.gestione-prodotti-container {
+    background: rgba(255, 255, 255, 0.95);
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.gestione-titolo {
+    text-align: center;
+    font-size: 2em;
+    color: #023059;
+    margin-bottom: 20px;
+}
+
+.tabella-container {
+    overflow-x: auto;
+}
+
+.tabella-prodotti {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    background: white;
+}
+
+.tabella-prodotti th,
+.tabella-prodotti td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.tabella-prodotti td.azioni {
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+.tabella-prodotti th {
+    background-color: #023059;
+    color: white;
+}
+
+.azioni {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.azioni form {
+    margin: 0;
+}
+
+.btn.danger {
+    background-color: #d9534f;
+}
+
+.btn.danger:hover {
+    background-color: #c9302c;
+}
+
+.azioni button {
+    width: auto;
+    padding: 8px 16px;
+    font-weight: bold;
+    text-align: center;
+}
+

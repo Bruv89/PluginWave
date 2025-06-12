@@ -2,7 +2,7 @@
 <%@ page import="model.Utente" %>
 <jsp:include page="header.jsp" />
 
-<link rel="stylesheet" href="styles/style.css">
+<main>
 
 <%
     Utente u = (Utente) session.getAttribute("utente");
@@ -31,5 +31,6 @@
         <a href="logout" class="admin-card danger">🔓 Logout</a>
     </div>
 </div>
+</main>
 
 <jsp:include page="footer.jsp" />

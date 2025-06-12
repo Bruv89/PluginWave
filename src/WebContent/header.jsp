@@ -33,10 +33,10 @@
         }
     </style>
 </head>
-<body>
+
 <%
     Utente utente = (Utente) session.getAttribute("utente");
-    String homeLink = "index.jsp"; // default per non loggati
+    String homeLink = "index.jsp";
 
     if (utente != null) {
         if ("admin".equals(utente.getRuolo())) {
@@ -46,6 +46,8 @@
         }
     }
 %>
+
+<body>
 <div class="navbar">
     <div class="nav-left">
         <a href="<%= homeLink %>">SoundWave</a>

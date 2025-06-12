@@ -4,7 +4,7 @@
 <%@ page import="java.util.*" %>
 <jsp:include page="header.jsp" />
 
-<link rel="stylesheet" href="styles/style.css">
+<main>
 
 <div class="cart-container">
     <h2>🛒 Il tuo carrello</h2>
@@ -18,31 +18,37 @@
     <%
         } else {
     %>
-        <div class="cart-grid">
-            <div class="cart-header">Prodotto</div>
-            <div class="cart-header">Quantità</div>
-            <div class="cart-header">Prezzo</div>
-            <div class="cart-header">Totale</div>
-            <div class="cart-header">Rimuovi</div>
+        <div class="cart-grid" id="cartGrid">
+    <div class="cart-header">Prodotto</div>
+    <div class="cart-header">Quantità</div>
+    <div class="cart-header">Prezzo</div>
+    <div class="cart-header">Totale</div>
+    <div class="cart-header">Rimuovi</div>
 
-            <%
-                for (ElementoCarrello ec : carrello.getElementi()) {
-                    int id = ec.getProdotto().getId();
-            %>
-            <div class="cart-cell"><%= ec.getProdotto().getNome() %></div>
-            <div class="cart-cell">
-                <input type="number" class="quantita" data-id="<%= id %>" value="<%= ec.getQuantita() %>" min="0">
-            </div>
-            <div class="cart-cell prezzo">€ <%= ec.getProdotto().getPrezzo() %></div>
-            <div class="cart-cell subtotale">€ <%= ec.getTotale() %></div>
-            <div class="cart-cell">
-                <form action="aggiornaCarrello" method="post">
-                    <input type="hidden" name="rimuovi" value="<%= id %>">
-                    <button class="remove-btn" type="submit">❌</button>
-                </form>
-            </div>
-            <% } %>
+    <% 
+        for (ElementoCarrello ec : carrello.getElementi()) {
+            int id = ec.getProdotto().getId();
+    %>
+        <div class="cart-cell"><%= ec.getProdotto().getNome() %></div>
+        <div class="cart-cell">
+            <input type="number" class="quantita" data-id="<%= id %>" value="<%= ec.getQuantita() %>" min="1" max="1000">
+            
         </div>
+        <div class="cart-cell prezzo" data-id="<%= id %>">€ <%= ec.getProdotto().getPrezzo() %></div>
+        <div class="cart-cell subtotale" data-id="<%= id %>">€ <%= ec.getTotale() %></div>
+        <div class="cart-cell">
+            <form action="aggiornaCarrello" method="post">
+                <input type="hidden" name="rimuovi" value="<%= id %>">
+                <button class="remove-btn" type="submit">❌</button>
+            </form>
+        </div>
+    <% } %>
+</div>
+        
+        
+  
+   
+        
 
         <div class="cart-summary">
             <strong id="totale">Totale: € <%= carrello.getTotale() %></strong>
@@ -59,6 +65,7 @@
         <a href="home">← Torna al catalogo prodotti</a>
     </div>
 </div>
+</main>
 
 <jsp:include page="footer.jsp" />
 
@@ -66,7 +73,15 @@
 document.querySelectorAll('.quantita').forEach(input => {
     input.addEventListener('input', function () {
         const id = this.dataset.id;
-        const quantita = this.value;
+        let quantita = parseInt(this.value);
+
+        if (quantita > 1000) {
+            quantita = 1000;
+            this.value = 1000;
+        } else if (quantita < 1 || isNaN(quantita)) {
+            quantita = 1;
+            this.value = 1;
+        }
 
         const params = "idProdotto=" + encodeURIComponent(id) + "&quantita=" + encodeURIComponent(quantita);
 
@@ -77,11 +92,9 @@ document.querySelectorAll('.quantita').forEach(input => {
         })
         .then(res => res.json())
         .then(data => {
-            const riga = document.querySelector('div.cart-cell input[data-id="' + id + '"]')?.closest('.cart-grid');
             const inputElem = document.querySelector('input[data-id="' + id + '"]');
-            const container = inputElem?.closest('.cart-grid');
 
-            if (quantita == 0 && container) {
+            if (quantita === 0) {
                 inputElem.closest('.cart-cell').parentElement.remove();
             } else {
                 inputElem.parentElement.nextElementSibling.textContent = "€ " + Number(data.prezzo).toFixed(2);
@@ -98,4 +111,5 @@ document.querySelectorAll('.quantita').forEach(input => {
         });
     });
 });
+
 </script>

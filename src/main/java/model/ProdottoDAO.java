@@ -94,7 +94,24 @@ public class ProdottoDAO {
         }
     }
 
-    
+    public static List<String> getCategorieDistinte() throws SQLException {
+        List<String> categorie = new ArrayList<>();
+
+        String sql = "SELECT DISTINCT categoria FROM prodotto";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                categorie.add(rs.getString("categoria"));
+            }
+        }
+
+        return categorie;
+    }
+
+
     
 }
 

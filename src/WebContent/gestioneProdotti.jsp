@@ -3,63 +3,62 @@
 <%@ page import="model.Prodotto" %>
 <jsp:include page="header.jsp" />
 
-<h2 style="padding: 20px;">Gestione Prodotti</h2>
+<main>
+<div class="gestione-prodotti-container">
+    <h2 class="gestione-titolo">🛠️ Gestione Prodotti</h2>
 
-<%
-    String msg = request.getParameter("modifica");
-    if ("ok".equals(msg)) {
-%>
-    <p style="color: green; padding: 10px;">✔️ Modifica salvata con successo.</p>
-<%
-    }
-%>
+    <% if ("ok".equals(request.getParameter("modifica"))) { %>
+        <div class="success-message">✔️ Modifica salvata con successo.</div>
+    <% } %>
 
+    <%
+        List<Prodotto> prodotti = (List<Prodotto>) request.getAttribute("prodotti");
+        if (prodotti == null || prodotti.isEmpty()) {
+    %>
+        <p class="empty-cart">Nessun prodotto presente nel catalogo.</p>
+    <%
+        } else {
+    %>
+    <div class="tabella-container">
+        <table class="tabella-prodotti">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Prezzo</th>
+                    <th>Categoria</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% for (Prodotto p : prodotti) { %>
+                <tr>
+                    <td><%= p.getId() %></td>
+                    <td><%= p.getNome() %></td>
+                    <td>€ <%= p.getPrezzo() %></td>
+                    <td><%= p.getCategoria() %></td>
+                    <td class="azioni">
+                        <form action="modificaProdotto.jsp" method="get">
+                            <input type="hidden" name="id" value="<%= p.getId() %>">
+                            <button class="btn secondary" type="submit">Modifica</button>
+                        </form>
+                        <form action="eliminaProdotto" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?');">
+                            <input type="hidden" name="id" value="<%= p.getId() %>">
+                            <button class="btn danger" type="submit">Elimina</button>
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
+    <% } %>
 
-<%
-    List<Prodotto> prodotti = (List<Prodotto>) request.getAttribute("prodotti");
-    if (prodotti == null || prodotti.isEmpty()) {
-%>
-    <p style="padding: 20px;">Nessun prodotto presente nel catalogo.</p>
-<%
-    } else {
-%>
-    <table border="1" cellpadding="10" cellspacing="0" style="margin: 20px; width: 90%;">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Prezzo</th>
-            <th>Categoria</th>
-            <th>Azioni</th>
-        </tr>
-        <%
-            for (Prodotto p : prodotti) {
-        %>
-        <tr>
-            <td><%= p.getId() %></td>
-            <td><%= p.getNome() %></td>
-            <td>€ <%= p.getPrezzo() %></td>
-            <td><%= p.getCategoria() %></td>
-            <td>
-                <form action="modificaProdotto.jsp" method="get" style="display:inline;">
-                    <input type="hidden" name="id" value="<%= p.getId() %>">
-                    <button type="submit">Modifica</button>
-                </form>
-                <form action="eliminaProdotto" method="post" style="display:inline;" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?');">
-                    <input type="hidden" name="id" value="<%= p.getId() %>">
-                    <button type="submit">Elimina</button>
-                </form>
-            </td>
-        </tr>
-        <%
-            }
-        %>
-    </table>
-<%
-    }
-%>
+    <div class="cart-back" style="margin-top: 40px;">
+        <a href="adminDashboard.jsp">← Torna alla Dashboard</a>
+    </div>
+</div>
+</main>
 
-<p style="padding: 20px;">
-    <a href="adminDashboard.jsp">← Torna alla Dashboard</a>
-</p>
 
 <jsp:include page="footer.jsp" />

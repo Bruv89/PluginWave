@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<footer class="site-footer">
+    <div class="footer-content">
+        <p>&copy; 2025 SoundWave - Tutti i diritti riservati</p>
+        <p>
+            <a href="index.jsp">Home</a> |
+            <a href="contatti.jsp">Contatti</a> |
+            <a href="privacy.jsp">Privacy</a>
+        </p>
+    </div>
+</footer>
