@@ -2,56 +2,84 @@
 <%@ page import="java.util.*, model.OrdineDTO, model.RigaOrdineDTO" %>
 <jsp:include page="header.jsp" />
 
-<h2 style="padding: 20px;">Visualizza Ordini</h2>
+<div class="admin-dashboard">
+    <h2 class="gestione-titolo">📋 Visualizza Ordini</h2>
 
-<form action="ordiniAdmin" method="get" style="padding: 20px;">
-    <label>Data inizio: <input type="date" name="startDate"></label>
-    <label style="margin-left: 20px;">Data fine: <input type="date" name="endDate"></label>
-    <br><br>
-    <label>Email cliente: <input type="email" name="email" style="width: 300px;"></label>
-    <br><br>
-    <button type="submit">Cerca</button>
-</form>
+    <form action="ordiniAdmin" method="get" class="admin-search-form">
+        <label>Data inizio:
+            <input type="date" name="startDate">
+        </label>
 
-<hr style="margin: 20px;">
+        <label>Data fine:
+            <input type="date" name="endDate">
+        </label>
 
-<%
-    Collection<OrdineDTO> ordini = (Collection<OrdineDTO>) request.getAttribute("ordini");
+        <label>Email cliente:
+            <input type="email" name="email" list="emailSuggerite" id="emailInput">
+            <datalist id="emailSuggerite"></datalist>
+        </label>
 
-    if (ordini != null) {
-        if (ordini.isEmpty()) {
-%>
-            <p style="padding: 20px;">Nessun ordine trovato.</p>
-<%
-        } else {
-            for (OrdineDTO ordine : ordini) {
-%>
-    <div style="border: 1px solid #ccc; margin: 20px; padding: 15px;">
-        <h3>Ordine #<%= ordine.id %> – <%= ordine.data %> – <%= ordine.emailUtente %></h3>
-        <p>Spedizione a: <%= ordine.indirizzo %>, <%= ordine.cap %> <%= ordine.citta %></p>
-        <table border="1" cellpadding="5" cellspacing="0">
-            <tr>
-                <th>Prodotto</th><th>Quantità</th><th>Prezzo</th><th>Subtotale</th>
-            </tr>
-            <%
-                for (RigaOrdineDTO r : ordine.righe) {
-            %>
-            <tr>
-                <td><%= r.nomeProdotto %></td>
-                <td><%= r.quantita %></td>
-                <td>€ <%= r.prezzo %></td>
-                <td>€ <%= r.prezzo * r.quantita %></td>
-            </tr>
-            <% } %>
-        </table>
-        <p><strong>Totale ordine:</strong> € <%= ordine.totale %></p>
-    </div>
-<%
+        <button type="submit" class="btn">Cerca</button>
+    </form>
+
+    <%
+        Collection<OrdineDTO> ordini = (Collection<OrdineDTO>) request.getAttribute("ordini");
+
+        if (ordini != null) {
+            if (ordini.isEmpty()) {
+    %>
+        <p class="ordine-confermato-testo">❌ Nessun ordine trovato.</p>
+    <%
+            } else {
+                for (OrdineDTO ordine : ordini) {
+    %>
+        <div class="ordine-box">
+            <h3>🧾 Ordine #<%= ordine.id %> – <%= ordine.data %> – <%= ordine.emailUtente %></h3>
+            <p class="ordine-indirizzo">📍 Spedizione a: <%= ordine.indirizzo %>, <%= ordine.cap %> <%= ordine.citta %></p>
+
+            <table class="tabella-prodotti">
+                <tr>
+                    <th>Prodotto</th><th>Quantità</th><th>Prezzo</th><th>Subtotale</th>
+                </tr>
+                <%
+                    for (RigaOrdineDTO r : ordine.righe) {
+                %>
+                <tr>
+                    <td><%= r.nomeProdotto %></td>
+                    <td><%= r.quantita %></td>
+                    <td>€ <%= r.prezzo %></td>
+                    <td>€ <%= r.prezzo * r.quantita %></td>
+                </tr>
+                <% } %>
+            </table>
+
+            <p class="ordine-totale"><strong>Totale ordine:</strong> € <%= ordine.totale %></p>
+        </div>
+    <%
+                }
             }
         }
-    }
-%>
+    %>
 
-<p style="padding: 20px;"><a href="adminDashboard.jsp">← Torna alla Dashboard</a></p>
+    <div class="ordine-confermato-link">
+        <a href="adminDashboard.jsp">← Torna alla Dashboard</a>
+    </div>
+</div>
 
 <jsp:include page="footer.jsp" />
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("email-utenti")
+        .then(response => response.json())
+        .then(data => {
+            const datalist = document.getElementById("emailSuggerite");
+            data.forEach(email => {
+                const option = document.createElement("option");
+                option.value = email;
+                datalist.appendChild(option);
+            });
+        })
+        .catch(error => console.error("Errore nel caricamento email:", error));
+});
+</script>

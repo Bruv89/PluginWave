@@ -148,4 +148,27 @@ public class OrdineDAO {
         o.totale = rs.getDouble("totale");
         return o;
     }
+    
+    public static List<String> getEmailUniche() {
+        List<String> emails = new ArrayList<>();
+        String sql = "SELECT DISTINCT u.email " +
+                     "FROM ordine o JOIN utente u ON o.id_utente = u.id";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                emails.add(rs.getString("email"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return emails;
+    }
+
+
+    
 }

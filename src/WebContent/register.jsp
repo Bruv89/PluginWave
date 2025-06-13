@@ -1,33 +1,31 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Registrazione - PluginWave</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <script src="scripts/register.js" defer></script>
-</head>
-<body>
 <jsp:include page="header.jsp" />
 
-<h2>Registrazione</h2>
+<main>
+    <div class="form-checkout">
+        <h2 style="text-align:center; color: #023059;">📝 Registrazione</h2>
 
-<form action="register" method="post" id="registerForm">
-    <label>Nome:</label>
-    <input type="text" name="nome" required><br>
+        <form action="register" method="post" id="registerForm">
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" id="nome" required maxlength="50">
 
-    <label>Email:</label>
-    <input type="email" name="email" required><br>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required maxlength="100">
 
-    <label>Password:</label>
-    <input type="password" name="password" required><br>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required minlength="6" maxlength="50">
 
-    <button type="submit">Registrati</button>
-</form>
+            <button type="submit" class="btn">Registrati</button>
+        </form>
 
-<p style="color:red;">
-    <%= request.getAttribute("errore") != null ? request.getAttribute("errore") : "" %>
-</p>
+        <% if (request.getAttribute("errore") != null) { %>
+            <p class="error" style="text-align:center;"><%= request.getAttribute("errore") %></p>
+        <% } %>
+
+        <p style="text-align:center; margin-top: 15px;">
+            Hai già un account? <a href="login.jsp" style="color:#025373; font-weight:bold;">Accedi</a>
+        </p>
+    </div>
+</main>
 
 <jsp:include page="footer.jsp" />
-</body>
-</html>

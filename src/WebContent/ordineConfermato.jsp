@@ -1,11 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="header.jsp" />
 
-<h2 style="padding: 20px;">Ordine confermato!</h2>
-<p style="padding: 20px;">Grazie per il tuo acquisto. Riceverai una mail con i dettagli della spedizione.</p>
+<main>
+    <div class="ordine-confermato-container">
+        <h2 class="ordine-confermato-titolo">🎉 Ordine confermato!</h2>
+        <p class="ordine-confermato-testo">
+            Grazie per il tuo acquisto! Riceverai a breve una mail con i dettagli della spedizione.
+        </p>
 
-<p style="padding: 20px;">
-    <a href="home">← Torna al catalogo</a>
-</p>
+        <div class="ordine-confermato-link">
+            <a href="home">← Torna al catalogo</a>
+        </div>
+    </div>
+</main>
 
 <jsp:include page="footer.jsp" />

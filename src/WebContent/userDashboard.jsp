@@ -10,16 +10,18 @@
     }
 %>
 
-<div style="padding: 40px;">
-    <h2>Benvenuto, <%= u.getNome() %>!</h2>
-    <p>Questa è la tua area personale su SoundWave.</p>
+<main>
+    <div class="admin-dashboard">
+        <h2>🎉 Benvenuto, <span class="highlight"><%= u.getNome() %></span>!</h2>
+        <p class="subtitle">Questa è la tua area personale su PluginWave.</p>
 
-    <ul style="margin-top: 20px;">
-        <li><a href="home">🎧 Vai al catalogo prodotti</a></li>
-        <li><a href="carrello.jsp">🛒 Visualizza carrello</a></li>
-        <li><a href="ordini">📦 I miei ordini</a></li>
-        <li><a href="logout">🔓 Logout</a></li>
-    </ul>
-</div>
+        <div class="admin-actions">
+            <a class="admin-card" href="home">🎧 Vai al catalogo prodotti</a>
+            <a class="admin-card" href="carrello.jsp">🛒 Visualizza carrello</a>
+            <a class="admin-card" href="ordini">📦 I miei ordini</a>
+            <a class="admin-card" href="logout">🔓 Logout</a>
+        </div>
+    </div>
+</main>
 
 <jsp:include page="footer.jsp" />

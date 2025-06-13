@@ -472,3 +472,98 @@ footer a:hover {
     text-align: center;
 }
 
+.ordine-confermato-container {
+    background: rgba(255, 255, 255, 0.96);
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.ordine-confermato-titolo {
+    font-size: 2em;
+    color: #023059;
+    margin-bottom: 20px;
+}
+
+.ordine-confermato-testo {
+    font-size: 1.2em;
+    color: #025373;
+    margin-bottom: 30px;
+}
+
+.ordine-confermato-link a {
+    color: #025373;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.05em;
+    transition: color 0.2s ease;
+}
+
+.ordine-confermato-link a:hover {
+    color: #012340;
+}
+
+/* --- ORDINI ADMIN --- */
+.admin-search-form {
+    background: white;
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.06);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-search-form label {
+    font-weight: bold;
+    color: #025373;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.admin-search-form input[type="date"],
+.admin-search-form input[type="email"] {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.ordine-box {
+    background: rgba(255, 255, 255, 0.96);
+    padding: 25px;
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 900px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.ordine-box h3 {
+    color: #023059;
+    margin-bottom: 10px;
+}
+
+.ordine-indirizzo {
+    font-size: 0.95em;
+    color: #025373;
+    margin-bottom: 15px;
+}
+
+.ordine-totale {
+    font-weight: bold;
+    margin-top: 15px;
+    color: #012340;
+}
+
+.ordine-confermato-link {
+    text-align: center;
+    margin-top: 30px;
+}
+
+

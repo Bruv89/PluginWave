@@ -19,30 +19,44 @@
     try {
         prodotto = new ProdottoDAO().doRetrieveById(id);
     } catch (SQLException e) {
-        out.println("<p style='color: red;'>Errore nel recupero del prodotto.</p>");
+        out.println("<div class='error' style='text-align:center;'>❌ Errore nel recupero del prodotto.</div>");
     }
 
     if (prodotto == null) {
 %>
-    <p style="padding: 20px; color: red;">Prodotto non trovato.</p>
+    <div class="error" style="text-align:center;">❌ Prodotto non trovato.</div>
 <%
     } else {
 %>
 
-<h2 style="padding: 20px;">Modifica Prodotto</h2>
+<main>
+    <h2 style="text-align:center; color:#023059;">✏️ Modifica Prodotto</h2>
 
-<form action="modificaProdotto" method="post" style="padding: 20px;">
-    <input type="hidden" name="id" value="<%= prodotto.getId() %>">
-    <label>Nome: <input type="text" name="nome" value="<%= prodotto.getNome() %>" required></label><br><br>
-    <label>Descrizione: <input type="text" name="descrizione" value="<%= prodotto.getDescrizione() %>" required></label><br><br>
-    <label>Prezzo: <input type="number" name="prezzo" value="<%= prodotto.getPrezzo() %>" step="0.01" required></label><br><br>
-    <label>Categoria: <input type="text" name="categoria" value="<%= prodotto.getCategoria() %>" required></label><br><br>
-    <label>Immagine (URL): <input type="text" name="immagine" value="<%= prodotto.getImmagine() %>" required></label><br><br>
+    <form action="modificaProdotto" method="post">
+        <input type="hidden" name="id" value="<%= prodotto.getId() %>">
 
-    <button type="submit">Salva modifiche</button>
-</form>
+        <label>Nome:</label>
+        <input type="text" name="nome" value="<%= prodotto.getNome() %>" maxlength="100" required>
 
-<p style="padding: 20px;"><a href="gestioneProdotti">← Torna alla lista prodotti</a></p>
+        <label>Descrizione:</label>
+        <input type="text" name="descrizione" value="<%= prodotto.getDescrizione() %>" maxlength="255" required>
+
+        <label>Prezzo:</label>
+        <input type="number" name="prezzo" value="<%= prodotto.getPrezzo() %>" step="0.01" min="0" required>
+
+        <label>Categoria:</label>
+        <input type="text" name="categoria" value="<%= prodotto.getCategoria() %>" maxlength="50" required>
+
+        <label>Immagine (URL):</label>
+        <input type="text" name="immagine" value="<%= prodotto.getImmagine() %>" required>
+
+        <button type="submit">💾 Salva modifiche</button>
+    </form>
+
+    <div class="cart-back" style="margin-top: 30px;">
+        <a href="gestioneProdotti">← Torna alla lista prodotti</a>
+    </div>
+</main>
 
 <%
     }
