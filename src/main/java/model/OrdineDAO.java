@@ -170,5 +170,28 @@ public class OrdineDAO {
     }
 
 
+    public static OrdineDTO getUltimoOrdineByUtente(int idUtente) throws SQLException {
+        String sql = "SELECT * FROM ordine WHERE id_utente = ? ORDER BY data DESC LIMIT 1";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUtente);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                OrdineDTO ordine = new OrdineDTO();
+                ordine.id = rs.getInt("id");
+                ordine.indirizzo = rs.getString("indirizzo");
+                ordine.citta = rs.getString("citta");
+                ordine.cap = rs.getString("cap");
+                ordine.data = rs.getTimestamp("data");
+                ordine.totale = rs.getDouble("totale");
+                return ordine;
+            }
+        }
+        return null;
+    }
+
     
 }

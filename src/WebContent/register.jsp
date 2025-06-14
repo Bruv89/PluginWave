@@ -7,7 +7,7 @@
 
         <form action="register" method="post" id="registerForm">
             <label for="nome">Nome</label>
-            <input type="text" name="nome" id="nome" required maxlength="50">
+            <input type="text" name="nome" id="nome" required minlength="6" required maxlength="50">
 
             <label for="email">Email</label>
             <input type="email" name="email" id="email" required maxlength="100">

@@ -8,6 +8,15 @@
 <main>
 <%
     Utente utente = (Utente) session.getAttribute("utente");
+model.OrdineDTO ultimoOrdine = null;
+if (utente != null) {
+    try {
+        ultimoOrdine = model.OrdineDAO.getUltimoOrdineByUtente(utente.getId());
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
     Carrello carrello = (Carrello) session.getAttribute("carrello");
 
     if (utente == null) {
@@ -35,13 +44,16 @@
         <h3>📦 Dati di spedizione</h3>
 
         <label for="indirizzo">Indirizzo</label>
-        <input type="text" name="indirizzo" id="indirizzo" required>
+        <input type="text" name="indirizzo" id="indirizzo" required
+       value="<%= ultimoOrdine != null ? ultimoOrdine.indirizzo : "" %>">
 
         <label for="citta">Città</label>
-        <input type="text" name="citta" id="citta" required>
+        <input type="text" name="citta" id="citta" required
+       value="<%= ultimoOrdine != null ? ultimoOrdine.citta : "" %>">
 
         <label for="cap">CAP</label>
-        <input type="text" name="cap" id="cap" required>
+        <input type="text" name="cap" id="cap" required
+       value="<%= ultimoOrdine != null ? ultimoOrdine.cap : "" %>">
 
         <h3>💳 Dati di pagamento</h3>
 

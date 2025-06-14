@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.*, model.OrdineDTO, model.RigaOrdineDTO" %>
+<%@ page import="model.Utente" %>
 <jsp:include page="header.jsp" />
 
 <div class="admin-dashboard">
@@ -41,10 +42,17 @@
             }
         }
     %>
-
+<%
+    model.Utente utente = (model.Utente) session.getAttribute("utente");
+    String dashboardLink = "login.jsp"; // default fallback
+    if (utente != null) {
+        dashboardLink = utente.getRuolo().equals("admin") ? "adminDashboard.jsp" : "userDashboard.jsp";
+    }
+%>
     <div class="ordine-confermato-link">
-        <a href="userDashboard.jsp">← Torna alla tua area personale</a>
-    </div>
+    <a href="<%= dashboardLink %>">← Torna alla tua area personale</a>
+</div>
+    
 </div>
 
 <jsp:include page="footer.jsp" />
