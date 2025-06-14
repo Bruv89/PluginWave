@@ -1,4 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+<%
+    model.Utente utente = (model.Utente) session.getAttribute("utente");
+    if (utente == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+
 <jsp:include page="header.jsp" />
 
 <main>

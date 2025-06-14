@@ -1,4 +1,12 @@
 <%@ page import="model.Utente" %>
+<%
+    String path = request.getServletPath();
+    if (path != null && path.endsWith("header.jsp")) {
+        response.sendRedirect("index.jsp");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 <head>

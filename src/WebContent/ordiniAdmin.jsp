@@ -1,5 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*, model.OrdineDTO, model.RigaOrdineDTO" %>
+
+
+<%
+    model.Utente utente = (model.Utente) session.getAttribute("utente");
+    if (utente == null || !"admin".equals(utente.getRuolo())) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+
 <jsp:include page="header.jsp" />
 
 <div class="admin-dashboard">
